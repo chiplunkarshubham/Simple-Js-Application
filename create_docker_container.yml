@@ -1,0 +1,13 @@
+---
+- name: name of the playbook is create_docker_container.yml
+  hosts: all
+  become: true
+  tasks:
+    - name: stop pervious docker versions
+      shell: docker stop webapp
+    - name: remove stopped container
+      shell: docker rm -f webapp
+    - name: remove docker images
+      shell: docker rmi -f chiplunkarshubham/devops_project:latest
+    - name: create docker container
+      shell: docker run --name webapp -p 8090:8080 chiplunkarshubham/devops_project:latest
